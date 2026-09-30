@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simple Money Tools | Free Budget & Savings Calculators</title>
+<meta name="description" content="Free, simple calculators and practical guides for budgeting, saving money, and planning everyday expenses.">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f8fc;color:#172033;line-height:1.55}
+header{background:#172033;color:white;padding:28px 18px}header .wrap,main,.footer-wrap{max-width:980px;margin:auto}
+nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}nav a{color:white;text-decoration:none}
+.hero{padding:38px 18px;background:white}.hero h1{font-size:clamp(32px,7vw,54px);margin:0 0 12px}.hero p{font-size:18px;color:#526078}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;padding:24px 0}
+.card{background:white;border:1px solid #e2e6ef;border-radius:16px;padding:20px;box-shadow:0 3px 12px rgba(0,0,0,.04)}
+.card h2{margin-top:0}.button{display:inline-block;background:#ff8a2b;color:white;padding:12px 16px;border-radius:10px;text-decoration:none;border:0;font-weight:700;cursor:pointer}
+label{display:block;font-weight:700;margin:12px 0 5px}input{width:100%;padding:12px;border:1px solid #ccd3e0;border-radius:9px;font-size:16px}
+.result{margin-top:14px;padding:14px;background:#f0f6ff;border-radius:10px;font-weight:700}
+section{padding:10px 18px 30px}.small{font-size:14px;color:#667085}.footer{background:#172033;color:#dbe2ef;padding:28px 18px;margin-top:20px}.footer a{color:white}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<strong>Simple Money Tools</strong>
+<nav><a href="#tools">Tools</a><a href="#guides">Guides</a><a href="#about">About</a></nav>
+</div></header>
+
+<div class="hero"><main>
+<h1>Make your money easier to understand.</h1>
+<p>Free calculators and simple guides for budgeting, saving, paychecks, and everyday expenses.</p>
+</main></div>
+
+<section id="tools"><main>
+<h2>Free Money Tools</h2>
+<div class="grid">
+<div class="card"><h2>Hourly Pay Calculator</h2>
+<label>Hourly wage ($)</label><input id="wage" type="number" step="0.01" placeholder="23">
+<label>Hours per week</label><input id="hours" type="number" step="0.1" placeholder="40">
+<button class="button" onclick="payCalc()">Calculate</button>
+<div id="payResult" class="result">Enter your numbers.</div></div>
+
+<div class="card"><h2>Savings Goal Calculator</h2>
+<label>Amount you want to save ($)</label><input id="goal" type="number" step="0.01" placeholder="1000">
+<label>Amount saved each month ($)</label><input id="monthly" type="number" step="0.01" placeholder="100">
+<button class="button" onclick="saveCalc()">Calculate</button>
+<div id="saveResult" class="result">Enter your numbers.</div></div>
+
+<div class="card"><h2>Grocery Budget Calculator</h2>
+<label>Monthly grocery budget ($)</label><input id="grocery" type="number" step="0.01" placeholder="400">
+<label>People in household</label><input id="people" type="number" step="1" placeholder="3">
+<button class="button" onclick="groceryCalc()">Calculate</button>
+<div id="groceryResult" class="result">Enter your numbers.</div></div>
+</div>
+<p class="small">These calculators provide estimates for planning and are not financial advice.</p>
+</main></section>
+
+<section id="guides"><main>
+<h2>Simple Guides</h2>
+<div class="grid">
+<div class="card"><h2>Start a Budget When Money Is Tight</h2><p>List essential bills first, set aside money for food and transportation, then assign the remaining amount to savings or other goals.</p></div>
+<div class="card"><h2>The 3-Bucket Method</h2><p>Separate your plan into essentials, flexible spending, and future goals. The percentages can change depending on your income and bills.</p></div>
+<div class="card"><h2>Small Savings Add Up</h2><p>Choose one repeat expense to reduce, automate a small transfer when possible, and review your progress once a month.</p></div>
+</div>
+</main></section>
+
+<section id="about"><main>
+<div class="card"><h2>About Simple Money Tools</h2>
+<p>This site provides general educational information and simple planning tools. It is not a bank, lender, investment adviser, or financial institution.</p>
+<p class="small">Monetization disclosure: If this site later uses advertising or referral links, those relationships will be disclosed clearly on relevant pages.</p></div>
+</main></section>
+
+<footer class="footer"><div class="footer-wrap">
+<p><strong>Simple Money Tools</strong></p>
+<p class="small">Educational information only. Verify important financial information with the relevant provider or official source.</p>
+<p><a href="#about">About</a></p>
+</div></footer>
+
+<script>
+function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n)}
+function payCalc(){
+ const w=parseFloat(document.getElementById('wage').value),h=parseFloat(document.getElementById('hours').value);
+ if(!(w>0&&h>0)){document.getElementById('payResult').textContent='Please enter both numbers.';return}
+ const weekly=w*h, monthly=weekly*52/12, yearly=weekly*52;
+ document.getElementById('payResult').innerHTML=`Weekly: ${money(weekly)}<br>Average monthly: ${money(monthly)}<br>Yearly: ${money(yearly)}<br><span class="small">Before taxes and deductions.</span>`;
+}
+function saveCalc(){
+ const g=parseFloat(document.getElementById('goal').value),m=parseFloat(document.getElementById('monthly').value);
+ if(!(g>0&&m>0)){document.getElementById('saveResult').textContent='Please enter both numbers.';return}
+ document.getElementById('saveResult').textContent=`About ${Math.ceil(g/m)} month(s) to reach your goal.`;
+}
+function groceryCalc(){
+ const g=parseFloat(document.getElementById('grocery').value),p=parseFloat(document.getElementById('people').value);
+ if(!(g>0&&p>0)){document.getElementById('groceryResult').textContent='Please enter both numbers.';return}
+ document.getElementById('groceryResult').innerHTML=`About ${money(g/4.345)} per week<br>About ${money(g/p)} per person per month`;
+}
+</script>
+</body>
+</html>
